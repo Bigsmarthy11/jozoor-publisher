@@ -1,0 +1,33 @@
+name: publish
+on:
+  schedule:
+    - cron: "*/15 * * * *"     # check the queue every 15 minutes
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Check media links but do not post to Instagram"
+        type: boolean
+        default: false
+concurrency: { group: publisher, cancel-in-progress: false }   # never two publishers at once
+permissions: { contents: write, issues: write }
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: git identity
+        run: git config user.name "jozoor-publisher" && git config user.email "actions@users.noreply.github.com"
+      - name: publish due items
+        env:
+          TOKEN_KEY: ${{ secrets.TOKEN_KEY }}
+          PAGES_BASE: ${{ vars.PAGES_BASE }}
+          DRY_RUN: ${{ inputs.dry_run && '1' || '0' }}
+        run: python3 publish.py
+      - name: report failure
+        if: failure()
+        env: { GH_TOKEN: "${{ github.token }}" }
+        run: |
+          body="$(cat "$RUNNER_TEMP/publish_errors.txt" 2>/dev/null || echo 'See the run log.')"
+          gh issue create --title "Publishing failed $(date -u +%F' '%H:%M) UTC" \
+            --body "$body"$'\n\n'"Run: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID" || true

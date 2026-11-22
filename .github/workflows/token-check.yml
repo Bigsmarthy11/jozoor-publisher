@@ -1,0 +1,26 @@
+name: token-check
+on:
+  schedule:
+    - cron: "17 3 * * *"       # daily health check (system-user tokens never expire, but can be revoked)
+  workflow_dispatch:
+permissions: { contents: read, issues: write }
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: verify token still works for @jozoor.om
+        env: { TOKEN_KEY: "${{ secrets.TOKEN_KEY }}" }
+        run: |
+          set -euo pipefail
+          tok="$(openssl enc -d -aes-256-cbc -pbkdf2 -iter 200000 -a -A -in state/token.enc -pass env:TOKEN_KEY)"
+          echo "::add-mask::$tok"
+          u="$(curl -sfG https://graph.facebook.com/v24.0/17841480898193113 --data-urlencode fields=username \
+               --data-urlencode "access_token=$tok" | python3 -c 'import json,sys;print(json.load(sys.stdin)["username"])')"
+          test "$u" = "jozoor.om" && echo "token OK for @$u"
+      - name: report failure
+        if: failure()
+        env: { GH_TOKEN: "${{ github.token }}" }
+        run: |
+          gh issue create --title "Instagram token check failed $(date -u +%F)" \
+            --body "Publishing will fail until a new token is stored. Run: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID" || true
