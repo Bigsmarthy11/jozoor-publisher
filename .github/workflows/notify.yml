@@ -1,0 +1,18 @@
+name: notify
+on:
+  workflow_dispatch:
+    inputs:
+      title: { description: "Alert title", required: true }
+      body:  { description: "Alert details", required: false, default: "" }
+permissions: { issues: write }
+jobs:
+  alert:
+    runs-on: ubuntu-latest
+    steps:
+      - name: open an alert issue (GitHub emails the owner)
+        env: { GH_TOKEN: "${{ github.token }}", T: "${{ inputs.title }}", B: "${{ inputs.body }}" }
+        run: |
+          # one open issue per alert title: don't spam
+          if gh issue list --repo "$GITHUB_REPOSITORY" --state open --search "\"$T\" in:title" --json number --jq 'length' | grep -qv '^0$'; then
+            echo "already open"; exit 0; fi
+          gh issue create --repo "$GITHUB_REPOSITORY" --title "$T" --body "$B"
