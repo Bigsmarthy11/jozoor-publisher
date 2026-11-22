@@ -233,7 +233,18 @@ def main():
     posted_today = sum(1 for v in ledger.values() if str(v.get("published_at", "")).startswith(today))
     cap = int(os.environ.get("DAILY_CAP", "2"))
     if posted_today >= cap:
-        log(f"daily cap reached ({posted_today}/{cap}); waiting for tomorrow")
+        log(f"daily cap reached ({posted_today}/{cap}); moving today's remaining due items to tomorrow")
+        bumped = []
+        for mf in sorted(QUEUE.glob("*/meta.json")):
+            m = json.loads(mf.read_text())
+            due = dt.datetime.fromisoformat(m["publish_at"].replace("Z", "+00:00"))
+            if m.get("approved") and ledger.get(m["id"], {}).get("status", "NEW") in ("NEW", "HOSTED") and due <= now():
+                m["publish_at"] = (due + dt.timedelta(days=1)).strftime("%Y-%m-%dT%H:%M:%SZ")
+                mf.write_text(json.dumps(m, ensure_ascii=False, indent=2) + "\n"); bumped.append(f"{m['id']} -> {m['publish_at']}")
+                if os.environ.get("GITHUB_ACTIONS"):
+                    subprocess.run(["git", "add", str(mf)], cwd=ROOT)
+        if bumped:
+            save_ledger(ledger, "cap reached, moved to tomorrow: " + "; ".join(bumped))
         return
     for meta_file in sorted(QUEUE.glob("*/meta.json")):
         meta = json.loads(meta_file.read_text())
