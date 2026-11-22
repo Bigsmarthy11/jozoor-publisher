@@ -183,11 +183,21 @@ def process(item_dir, meta, ledger, ig_id):
         unhost(item_dir)
         save_ledger(ledger, f"{iid}: PUBLISHED {st.get('permalink', '')}")
         log(f"{iid}: PUBLISHED {st.get('permalink', '')}")
+        sf = ROOT / "state" / "failure_streak"
+        if sf.exists():
+            sf.unlink()
+            if os.environ.get("GITHUB_ACTIONS"):
+                subprocess.run(["git", "rm", "-q", "--cached", str(sf)], cwd=ROOT)
+                subprocess.run(["git", "commit", "-qm", "reset failure streak"], cwd=ROOT); subprocess.run(["git", "push", "-q"], cwd=ROOT)
 
 
 def main():
     if not TOKEN:
         sys.exit("IG_TOKEN missing")
+    auto_pause = ROOT / "state" / "AUTO_PAUSED"
+    if auto_pause.exists():
+        log(f"publishing AUTO-PAUSED: {auto_pause.read_text().strip()} (delete state/AUTO_PAUSED to resume)")
+        return
     if os.environ.get("PUBLISHING_PAUSED", "").lower() in ("1", "true", "yes"):
         log("publishing is PAUSED (repo variable PUBLISHING_PAUSED); nothing posted")
         return
@@ -225,6 +235,20 @@ def main():
             errors.append(f"{meta['id']}: {e}")
         break  # one post per run: keeps spacing natural and runs short
     if errors:
+        # safety: 2 failed runs in a row (or any permission/policy error) pauses all publishing
+        streak_f = ROOT / "state" / "failure_streak"
+        streak = int(streak_f.read_text()) + 1 if streak_f.exists() else 1
+        streak_f.write_text(str(streak))
+        serious = any(k in " ".join(errors).lower() for k in ("permission", "policy", "restricted", "blocked", "spam", "oauth", "190", "368", "10)"))
+        if streak >= 2 or serious:
+            (ROOT / "state" / "AUTO_PAUSED").write_text(f"{now():%F %H:%M} UTC after {streak} failed run(s): {errors[0][:300]}")
+            errors.append("PUBLISHING AUTO-PAUSED for safety. Check the error, then delete state/AUTO_PAUSED to resume.")
+        save_ledger(ledger, "failure streak / auto-pause update")
+        for f in (streak_f, ROOT / "state" / "AUTO_PAUSED"):
+            if f.exists() and os.environ.get("GITHUB_ACTIONS"):
+                subprocess.run(["git", "add", str(f)], cwd=ROOT)
+        if os.environ.get("GITHUB_ACTIONS"):
+            subprocess.run(["git", "commit", "-qm", "safety state"], cwd=ROOT); subprocess.run(["git", "push", "-q"], cwd=ROOT)
         pathlib.Path(os.environ.get("RUNNER_TEMP", "/tmp"), "publish_errors.txt").write_text("\n".join(errors))
         sys.exit(1)
 
