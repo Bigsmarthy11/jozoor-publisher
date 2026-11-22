@@ -1,8 +1,9 @@
 {
   "20261122-salim-vs-gps": {
-    "status": "HOSTED",
-    "attempts": 0,
+    "status": "CONTAINER",
+    "attempts": 1,
     "video_url": "https://bigsmarthy11.github.io/jozoor-publisher/queue/20261122-salim-vs-gps/video.mp4",
-    "cover_url": "https://bigsmarthy11.github.io/jozoor-publisher/queue/20261122-salim-vs-gps/cover.jpg"
+    "cover_url": "https://bigsmarthy11.github.io/jozoor-publisher/queue/20261122-salim-vs-gps/cover.jpg",
+    "container_id": "17870140062696607"
   }
 }
