@@ -10,10 +10,13 @@
     "published_at": "2026-11-22T01:39:32+00:00"
   },
   "20261122-salim-ac-war": {
-    "status": "PUBLISHING",
+    "status": "PUBLISHED",
     "attempts": 1,
     "video_url": "https://bigsmarthy11.github.io/jozoor-publisher/queue/20261122-salim-ac-war/video.mp4",
     "cover_url": "https://bigsmarthy11.github.io/jozoor-publisher/queue/20261122-salim-ac-war/cover.jpg",
-    "container_id": "17870218476696607"
+    "container_id": "17870218476696607",
+    "media_id": "17899376358414472",
+    "permalink": "https://www.instagram.com/reel/DgCYfZ_gqsE/",
+    "published_at": "2026-11-22T08:32:56+00:00"
   }
 }
