@@ -183,6 +183,10 @@ def process(item_dir, meta, ledger, ig_id):
         unhost(item_dir)
         save_ledger(ledger, f"{iid}: PUBLISHED {st.get('permalink', '')}")
         log(f"{iid}: PUBLISHED {st.get('permalink', '')}")
+        with open(ROOT / "state" / "publish_log.md", "a") as fh:
+            fh.write(f"- {st['published_at']} UTC · {iid} · {st.get('permalink', '')}\n")
+        if os.environ.get("GITHUB_ACTIONS"):
+            subprocess.run(["git", "add", str(ROOT / "state" / "publish_log.md")], cwd=ROOT)
         sf = ROOT / "state" / "failure_streak"
         if sf.exists():
             sf.unlink()
@@ -208,6 +212,23 @@ def main():
         sys.exit(f"token belongs to @{me['username']}, expected @jozoor.om; refusing to publish")
     ledger = load_ledger()
     errors = []
+    # missed slots: an item that never started and is >3 h late moves to the same time tomorrow
+    moved = []
+    for mf in sorted(QUEUE.glob("*/meta.json")):
+        m = json.loads(mf.read_text())
+        st = ledger.get(m["id"], {}).get("status", "NEW")
+        due = dt.datetime.fromisoformat(m["publish_at"].replace("Z", "+00:00"))
+        if m.get("approved") and st in ("NEW", "HOSTED") and now() - due > dt.timedelta(hours=3):
+            while now() - due > dt.timedelta(hours=3):
+                due += dt.timedelta(days=1)
+            m["publish_at"] = due.strftime("%Y-%m-%dT%H:%M:%SZ")
+            mf.write_text(json.dumps(m, ensure_ascii=False, indent=2) + "\n")
+            moved.append(f"{m['id']} -> {m['publish_at']}")
+            if os.environ.get("GITHUB_ACTIONS"):
+                subprocess.run(["git", "add", str(mf)], cwd=ROOT)
+    if moved:
+        log("rescheduled missed slots:", "; ".join(moved))
+        save_ledger(ledger, "reschedule missed slots: " + "; ".join(moved))
     today = now().date().isoformat()
     posted_today = sum(1 for v in ledger.values() if str(v.get("published_at", "")).startswith(today))
     cap = int(os.environ.get("DAILY_CAP", "2"))
