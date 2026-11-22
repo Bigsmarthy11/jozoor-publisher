@@ -22,6 +22,8 @@ jobs:
         env:
           TOKEN_KEY: ${{ secrets.TOKEN_KEY }}
           PAGES_BASE: ${{ vars.PAGES_BASE }}
+          PUBLISHING_PAUSED: ${{ vars.PUBLISHING_PAUSED }}
+          DAILY_CAP: ${{ vars.DAILY_CAP }}
           DRY_RUN: ${{ inputs.dry_run && '1' || '0' }}
         run: python3 publish.py
       - name: report failure

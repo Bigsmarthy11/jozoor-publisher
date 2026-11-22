@@ -188,6 +188,9 @@ def process(item_dir, meta, ledger, ig_id):
 def main():
     if not TOKEN:
         sys.exit("IG_TOKEN missing")
+    if os.environ.get("PUBLISHING_PAUSED", "").lower() in ("1", "true", "yes"):
+        log("publishing is PAUSED (repo variable PUBLISHING_PAUSED); nothing posted")
+        return
     me = graph("GET", IG_USER_ID, fields="id,username")
     ig_id = me["id"]
     log(f"account @{me['username']} ({ig_id})")
@@ -195,6 +198,12 @@ def main():
         sys.exit(f"token belongs to @{me['username']}, expected @jozoor.om; refusing to publish")
     ledger = load_ledger()
     errors = []
+    today = now().date().isoformat()
+    posted_today = sum(1 for v in ledger.values() if str(v.get("published_at", "")).startswith(today))
+    cap = int(os.environ.get("DAILY_CAP", "2"))
+    if posted_today >= cap:
+        log(f"daily cap reached ({posted_today}/{cap}); waiting for tomorrow")
+        return
     for meta_file in sorted(QUEUE.glob("*/meta.json")):
         meta = json.loads(meta_file.read_text())
         due = dt.datetime.fromisoformat(meta["publish_at"].replace("Z", "+00:00")) <= now()
