@@ -1,5 +1,5 @@
 {
-  "at": "2026-11-22T15:07:18+00:00",
-  "ready_scripts": 2,
-  "last_log": "[2026-11-22 19:07:18] done in 113s"
+  "at": "2026-11-23T02:56:02+00:00",
+  "ready_scripts": 1,
+  "last_log": "    at async /Users/mac/Movies/JOZOOR-Studios/jozoor-studio/engine/render.js:52:17"
 }
