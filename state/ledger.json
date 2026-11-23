@@ -30,10 +30,13 @@
     "published_at": "2026-11-22T12:52:35+00:00"
   },
   "20261123-salim-yalla": {
-    "status": "PUBLISHING",
+    "status": "PUBLISHED",
     "attempts": 1,
     "video_url": "https://bigsmarthy11.github.io/jozoor-publisher/queue/20261123-salim-yalla/video.mp4",
     "cover_url": "https://bigsmarthy11.github.io/jozoor-publisher/queue/20261123-salim-yalla/cover.jpg",
-    "container_id": "17870478618696607"
+    "container_id": "17870478618696607",
+    "media_id": "18177070882489555",
+    "permalink": "https://www.instagram.com/reel/DgE6-MHjN5b/",
+    "published_at": "2026-11-23T08:12:20+00:00"
   }
 }
