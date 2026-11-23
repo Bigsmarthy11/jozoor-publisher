@@ -1,0 +1,12 @@
+{
+  "id": "20261124-diwaniya-ep003-wifi",
+  "title": "باسوورد الواي فاي",
+  "type": "REELS",
+  "publish_at": "2026-11-24T12:00:00Z",
+  "approved": true,
+  "approved_note": "autopilot: owner authorized posting without review (2026-11-22); passed qc.py",
+  "video": "video.mp4",
+  "cover": "cover.jpg",
+  "caption": "caption.txt",
+  "share_to_feed": true
+}
