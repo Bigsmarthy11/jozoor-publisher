@@ -1,0 +1,12 @@
+{
+  "id": "20261124-majlis-ep003-greeting",
+  "title": "السلام الطويل",
+  "type": "REELS",
+  "publish_at": "2026-11-24T15:30:00Z",
+  "approved": true,
+  "approved_note": "autopilot: owner authorized posting without review (2026-11-22); passed qc.py",
+  "video": "video.mp4",
+  "cover": "cover.jpg",
+  "caption": "caption.txt",
+  "share_to_feed": true
+}
