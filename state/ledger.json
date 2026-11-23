@@ -40,10 +40,13 @@
     "published_at": "2026-11-23T08:12:20+00:00"
   },
   "20261123-diwaniya-ep001-delivery": {
-    "status": "PUBLISHING",
+    "status": "PUBLISHED",
     "attempts": 1,
     "video_url": "https://bigsmarthy11.github.io/jozoor-publisher/queue/20261123-diwaniya-ep001-delivery/video.mp4",
     "cover_url": "https://bigsmarthy11.github.io/jozoor-publisher/queue/20261123-diwaniya-ep001-delivery/cover.jpg",
-    "container_id": "17870516748696607"
+    "container_id": "17870516748696607",
+    "media_id": "18111067001251340",
+    "permalink": "https://www.instagram.com/reel/DgFVdxHiBxg/",
+    "published_at": "2026-11-23T12:03:41+00:00"
   }
 }
