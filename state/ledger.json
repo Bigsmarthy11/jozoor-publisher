@@ -50,9 +50,10 @@
     "published_at": "2026-11-23T12:03:41+00:00"
   },
   "20261122-majlis-ep001-five-minutes": {
-    "status": "HOSTED",
-    "attempts": 0,
+    "status": "CONTAINER",
+    "attempts": 1,
     "video_url": "https://bigsmarthy11.github.io/jozoor-publisher/queue/20261122-majlis-ep001-five-minutes/video.mp4",
-    "cover_url": "https://bigsmarthy11.github.io/jozoor-publisher/queue/20261122-majlis-ep001-five-minutes/cover.jpg"
+    "cover_url": "https://bigsmarthy11.github.io/jozoor-publisher/queue/20261122-majlis-ep001-five-minutes/cover.jpg",
+    "container_id": "17871100335696607"
   }
 }
