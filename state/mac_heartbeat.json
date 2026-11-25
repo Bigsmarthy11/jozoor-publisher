@@ -1,5 +1,5 @@
 {
-  "at": "2026-11-25T16:44:08+00:00",
-  "ready_scripts": 1,
-  "last_log": "[2026-11-25 20:44:08] queue already holds 6 unposted items (>= 6); nothing to do"
+  "at": "2026-11-25T17:29:47+00:00",
+  "ready_scripts": 5,
+  "last_log": "[2026-11-25 21:29:47] publishing is paused; not rendering"
 }
