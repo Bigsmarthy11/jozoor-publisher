@@ -285,5 +285,25 @@ def main():
         sys.exit(1)
 
 
+def guarded_main():
+    try:
+        main()
+    except SystemExit:
+        raise
+    except Exception as e:  # anything outside per-item handling (e.g. account/API blocked): pause once, alert once
+        msg = str(e)
+        serious = any(k in msg.lower() for k in ("oauth", "access blocked", "permission", "policy", "restricted", "spam", "session has expired", "190"))
+        log(f"FATAL: {msg[:400]}")
+        if serious:
+            (ROOT / "state" / "AUTO_PAUSED").write_text(f"{now():%F %H:%M} UTC: {msg[:400]}")
+            if os.environ.get("GITHUB_ACTIONS"):
+                subprocess.run(["git", "add", str(ROOT / "state" / "AUTO_PAUSED")], cwd=ROOT)
+                subprocess.run(["git", "commit", "-qm", "AUTO-PAUSED: account/API error"], cwd=ROOT)
+                subprocess.run(["git", "push", "-q"], cwd=ROOT)
+        pathlib.Path(os.environ.get("RUNNER_TEMP", "/tmp"), "publish_errors.txt").write_text(
+            ("CRITICAL - publishing auto-paused. " if serious else "") + msg[:1500])
+        sys.exit(1)
+
+
 if __name__ == "__main__":
-    main()
+    guarded_main()
