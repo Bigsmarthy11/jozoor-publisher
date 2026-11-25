@@ -70,10 +70,13 @@
     "published_at": "2026-11-25T18:23:23+00:00"
   },
   "20261126-karak-ep001-traffic": {
-    "status": "PUBLISHING",
+    "status": "PUBLISHED",
     "attempts": 1,
     "video_url": "https://bigsmarthy11.github.io/jozoor-publisher/queue/20261126-karak-ep001-traffic/video.mp4",
     "cover_url": "https://bigsmarthy11.github.io/jozoor-publisher/queue/20261126-karak-ep001-traffic/cover.jpg",
-    "container_id": "17871110016696607"
+    "container_id": "17871110016696607",
+    "media_id": "17875273059645679",
+    "permalink": "https://www.instagram.com/reel/DgLMytCxfhn/",
+    "published_at": "2026-11-25T18:43:23+00:00"
   }
 }
