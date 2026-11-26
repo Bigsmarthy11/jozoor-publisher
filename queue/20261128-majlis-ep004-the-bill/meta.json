@@ -1,0 +1,12 @@
+{
+  "id": "20261128-majlis-ep004-the-bill",
+  "title": "معركة الفاتورة",
+  "type": "REELS",
+  "publish_at": "2026-11-28T08:00:00Z",
+  "approved": true,
+  "approved_note": "autopilot: owner authorized posting without review (2026-11-22); passed qc.py",
+  "video": "video.mp4",
+  "cover": "cover.jpg",
+  "caption": "caption.txt",
+  "share_to_feed": true
+}
