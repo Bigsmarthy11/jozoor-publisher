@@ -80,9 +80,10 @@
     "published_at": "2026-11-25T18:43:23+00:00"
   },
   "20261124-sticky-ep002-printer": {
-    "status": "HOSTED",
-    "attempts": 0,
+    "status": "CONTAINER",
+    "attempts": 1,
     "video_url": "https://bigsmarthy11.github.io/jozoor-publisher/queue/20261124-sticky-ep002-printer/video.mp4",
-    "cover_url": "https://bigsmarthy11.github.io/jozoor-publisher/queue/20261124-sticky-ep002-printer/cover.jpg"
+    "cover_url": "https://bigsmarthy11.github.io/jozoor-publisher/queue/20261124-sticky-ep002-printer/cover.jpg",
+    "container_id": "17871233322696607"
   }
 }
