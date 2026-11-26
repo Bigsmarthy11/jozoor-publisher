@@ -1,5 +1,5 @@
 {
-  "at": "2026-11-26T09:35:46+00:00",
-  "ready_scripts": 4,
-  "last_log": "[2026-11-26 13:35:46] run aborted: git pull -q failed: fatal: unable to access 'https://github.com/Bigsmarthy11/jozoor-publisher.git/': Could not resolve host: github.com"
+  "at": "2026-11-26T11:57:23+00:00",
+  "ready_scripts": 3,
+  "last_log": "[2026-11-26 15:57:23] done in 195s"
 }
