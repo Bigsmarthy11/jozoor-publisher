@@ -100,10 +100,13 @@
     "published_at": "2026-11-27T14:24:23+00:00"
   },
   "20261123-majlis-ep002-whatsapp": {
-    "status": "PUBLISHING",
+    "status": "PUBLISHED",
     "attempts": 1,
     "video_url": "https://bigsmarthy11.github.io/jozoor-publisher/queue/20261123-majlis-ep002-whatsapp/video.mp4",
     "cover_url": "https://bigsmarthy11.github.io/jozoor-publisher/queue/20261123-majlis-ep002-whatsapp/cover.jpg",
-    "container_id": "17871564555696607"
+    "container_id": "17871564555696607",
+    "media_id": "18118074494012788",
+    "permalink": "https://www.instagram.com/reel/DgQAhpZK0gV/",
+    "published_at": "2026-11-27T15:32:56+00:00"
   }
 }
