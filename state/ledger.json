@@ -90,9 +90,10 @@
     "published_at": "2026-11-26T09:39:37+00:00"
   },
   "20261124-diwaniya-ep003-wifi": {
-    "status": "HOSTED",
-    "attempts": 0,
+    "status": "CONTAINER",
+    "attempts": 1,
     "video_url": "https://bigsmarthy11.github.io/jozoor-publisher/queue/20261124-diwaniya-ep003-wifi/video.mp4",
-    "cover_url": "https://bigsmarthy11.github.io/jozoor-publisher/queue/20261124-diwaniya-ep003-wifi/cover.jpg"
+    "cover_url": "https://bigsmarthy11.github.io/jozoor-publisher/queue/20261124-diwaniya-ep003-wifi/cover.jpg",
+    "container_id": "17871546084696607"
   }
 }
