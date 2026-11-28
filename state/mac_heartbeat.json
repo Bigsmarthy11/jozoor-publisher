@@ -1,5 +1,5 @@
 {
-  "at": "2026-11-27T20:56:50+00:00",
-  "ready_scripts": 2,
-  "last_log": "[2026-11-28 00:56:50] queue already holds 4 unposted items (>= 4); nothing to do"
+  "at": "2026-11-28T08:15:55+00:00",
+  "ready_scripts": 4,
+  "last_log": "[2026-11-28 12:15:55] done in 187s"
 }
