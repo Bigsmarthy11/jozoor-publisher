@@ -120,9 +120,10 @@
     "published_at": "2026-11-28T08:11:07+00:00"
   },
   "20261128-majlis-ep004-the-bill": {
-    "status": "HOSTED",
-    "attempts": 0,
+    "status": "CONTAINER",
+    "attempts": 1,
     "video_url": "https://bigsmarthy11.github.io/jozoor-publisher/queue/20261128-majlis-ep004-the-bill/video.mp4",
-    "cover_url": "https://bigsmarthy11.github.io/jozoor-publisher/queue/20261128-majlis-ep004-the-bill/cover.jpg"
+    "cover_url": "https://bigsmarthy11.github.io/jozoor-publisher/queue/20261128-majlis-ep004-the-bill/cover.jpg",
+    "container_id": "17871730386696607"
   }
 }
