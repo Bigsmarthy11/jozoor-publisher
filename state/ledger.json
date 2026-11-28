@@ -110,10 +110,13 @@
     "published_at": "2026-11-27T15:32:56+00:00"
   },
   "20261125-sticky-ep003-monday-meeting": {
-    "status": "PUBLISHING",
+    "status": "PUBLISHED",
     "attempts": 1,
     "video_url": "https://bigsmarthy11.github.io/jozoor-publisher/queue/20261125-sticky-ep003-monday-meeting/video.mp4",
     "cover_url": "https://bigsmarthy11.github.io/jozoor-publisher/queue/20261125-sticky-ep003-monday-meeting/cover.jpg",
-    "container_id": "17871728907696607"
+    "container_id": "17871728907696607",
+    "media_id": "18003371379020195",
+    "permalink": "https://www.instagram.com/reel/DgRy0UBBjkz/",
+    "published_at": "2026-11-28T08:11:07+00:00"
   }
 }
